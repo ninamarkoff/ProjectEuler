@@ -16,8 +16,9 @@
         public static void Main()
         {
             int sum = 0;
+            const int LIMIT = 1000;
 
-            for (int i = 1; i < 1000; i++)
+            for (int i = 1; i < LIMIT; i++)
             {
                 if(IsMultipleOf3Or5(i))
                 {
