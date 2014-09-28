@@ -69,6 +69,7 @@
         {
             int sum = 0;
             bool[] primes = PrimeNumbersUpTo(9877);
+            //Since prime numbers are divisible only by 1 and themselves, we don't need them as a product
             Dictionary<int, int> nonPrimeAndPandigital = new Dictionary<int, int>();
             for (int i = 1; i <= 9876; i++)
             {
