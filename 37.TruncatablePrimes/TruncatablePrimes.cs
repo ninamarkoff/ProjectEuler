@@ -2,10 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     public class TruncatablePrimes
     {
@@ -32,61 +28,57 @@
 
         public static void Main()
         {
-            var primes = PrimeNumbersUpTo(10000000);
-            int start1 = 3;
-            int start2 = 7;
-            int counter = 0;
-            List<int> numbers = new List<int>();
-            int[] allowedDigits = { 1, 3, 7, 9 };
-            int addedNums = 0;
+            var primes = PrimeNumbersUpTo(1000000);
             int sum = 0;
+            List<int> numbers = new List<int>();
+            numbers.Add(2);
+            numbers.Add(3);
+            numbers.Add(5);
+            numbers.Add(7);
+            int lastChildrenCount = 4;
+            int currentChildrenCount = 0;
+            int counter = 0;
+            int[] allowedDigits = {1, 3, 7, 9 };
             List<int> answers = new List<int>();
             while (counter < 11)
             {
-                for (int i = 0; i < allowedDigits.Length; i++)
+                for (int i = numbers.Count - lastChildrenCount - currentChildrenCount; i < numbers.Count - currentChildrenCount ; i++)
                 {
-                    if (primes[start1 * 10 + allowedDigits[i]])
+                    for (int j = 0; j < allowedDigits.Length; j++)
                     {
-                        numbers.Add(start1 * 10 + allowedDigits[i]);
-                        addedNums++;
-                        if (i == 1 || i == 2)
+                        if(primes[10 * numbers[i] + allowedDigits[j]])
                         {
-                            int count = numbers[numbers.Count - 1].ToString().Length - 1;
-                            while (count > 0 && primes[numbers[numbers.Count - 1] % (int)Math.Pow(10, count)])
+                            numbers.Add(10 * numbers[i] + allowedDigits[j]);
+                            currentChildrenCount++;
+                            if(j == 1 || j == 2)
                             {
-                                count--;
-                            }
-                            if (count == 0)
-                            {
-                                counter++;
-                                sum += numbers[numbers.Count - 1];
-                                answers.Add(numbers[numbers.Count - 1]);
-                            }
-                        }
-                    }
-                    if (primes[start2 * 10 + allowedDigits[i]])
-                    {
-                        numbers.Add(start2 * 10 + allowedDigits[i]);
-                        addedNums++;
-                        if (i == 1 || i == 2)
-                        {
-                            int count = numbers[numbers.Count - 1].ToString().Length - 1;
-                            while (count > 0 && primes[numbers[numbers.Count - 1] % (int)Math.Pow(10, count)])
-                            {
-                                count--;
-                            }
-                            if (count == 0)
-                            {
-                                counter++;
-                                sum += numbers[numbers.Count - 1];
-                                answers.Add(numbers[numbers.Count - 1]);
+                                int len = numbers[numbers.Count - 1].ToString().Length - 1;
+                                bool isPrime = true;
+                                while (len > 0 && isPrime)
+                                {
+                                    if(primes[int.Parse(numbers[numbers.Count - 1].ToString().Substring(len))])
+                                    {
+                                        len--;
+                                    }
+                                    else
+                                    {
+                                        isPrime = false;
+                                    }
+                                }
+                                if(isPrime)
+                                {
+                                    counter++;
+                                    answers.Add(numbers[numbers.Count - 1]);
+                                    sum += numbers[numbers.Count - 1];
+                                }
                             }
                         }
                     }
                 }
+                lastChildrenCount = currentChildrenCount;
+                currentChildrenCount = 0;
             }
             Console.WriteLine(sum);
-            Console.WriteLine(answers);
         }
     }
 }
