@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace _44.PentagonNumbers
 {
+    using System;
+    
     public class PentagonNumbers
     {
         public static bool IsPentagonal(long number)
