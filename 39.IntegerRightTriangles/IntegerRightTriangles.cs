@@ -8,7 +8,6 @@
     {
         public static void Main()
         {
-            var t = DateTime.Now;
             Dictionary<int, int> perimeters = new Dictionary<int, int>();
             for (int i = 12; i < 1001; i += 4)
             {
@@ -33,7 +32,6 @@
             var n = perimeters.Max(p => p.Value);
             var answer = perimeters.First(q => q.Value == n).Key;
             Console.WriteLine(answer);
-            Console.WriteLine(DateTime.Now - t);
         }
     }
 }
